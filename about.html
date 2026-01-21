@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Align</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/landing.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        .about-container { max-width: 800px; margin: 0 auto; padding: 120px 5% 80px; }
+        .about-container h1 { font-size: 3.5rem; margin-bottom: 30px; font-family: 'Outfit', sans-serif; letter-spacing: -1px; line-height: 1.1; }
+        .about-container h2 { font-size: 2rem; margin-top: 60px; margin-bottom: 20px; font-family: 'Outfit', sans-serif; font-weight: 700; }
+        .about-container p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 24px; line-height: 1.8; }
+        .tech-tag { 
+            display: inline-block; 
+            background: #f0f0f0; 
+            padding: 8px 16px; 
+            border-radius: 50px; 
+            font-size: 0.95rem; 
+            margin-right: 10px; 
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+        
+        @media (max-width: 768px) {
+            .about-container { padding: 100px 5% 60px; }
+            .about-container h1 { font-size: 2.5rem; }
+            .about-container h2 { font-size: 1.5rem; margin-top: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo-container">
+            <a href="index.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit;">
+                <div class="logo-box">A</div>
+                <span class="logo-text">Align</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="features.html">Features</a>
+            <a href="about.html" class="active" style="color: var(--text-main);">About</a>
+        </div>
+        <div class="nav-auth">
+            <a href="https://github.com/mustbeajay/align" class="btn btn-outline">View Code</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <div class="about-container">
+        <h1>Building the web, one block at a time.</h1>
+        <p>Align was born from a simple question: Can we build a fully functional visual design tool without using heavy rendering engines like Canvas or WebGL?</p>
+        
+        <h2>The Story</h2>
+        <p>This project was created as an entry for the <strong>Sheriyans Coding School Inter-Batch Showdown</strong>. The challenge was to build a Figma-like visual editor using only standard DOM elements (HTML Divs) and Vanilla JavaScript.</p>
+        <p>While most design tools rely on pixel manipulation, Align relies on the DOM itself. This means every rectangle you draw is a real HTML element, making the tool incredibly lightweight and accessible.</p>
+
+        <h2>Under the Hood</h2>
+        <p>Align is built with a focus on core engineering fundamentals:</p>
+        <div>
+            <span class="tech-tag">Vanilla JavaScript</span>
+            <span class="tech-tag">DOM Manipulation</span>
+            <span class="tech-tag">CSS Variables</span>
+            <span class="tech-tag">Local Storage API</span>
+            <span class="tech-tag">CSS Grid</span>
+        </div>
+
+        <h2>The Creator</h2>
+        <p>Designed and developed by Ajay. A Web Development student passionate about building intuitive user interfaces and solving complex engineering challenges.</p>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo-container small">
+                    <div class="logo-box small">A</div>
+                    <span>Align</span>
+                </div>
+                <p class="brand-tagline">Design layouts at the speed of thought. Build beautiful, distraction-free interfaces instantly.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Twitter">Twitter</a>
+                    <a href="#" class="social-link" aria-label="Discord">Discord</a>
+                    <a href="https://github.com/mustbeajay/align" class="social-link" aria-label="GitHub">GitHub</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Product</h4>
+                <a href="features.html">Features</a>
+                <a href="#">Templates</a>
+                <a href="#">Integrations</a>
+                <a href="#">Changelog</a>
+            </div>
+
+            <div class="footer-column">
+                <h4>Company</h4>
+                <a href="about.html">About</a>
+                <a href="#">Careers</a>
+                <a href="#">Blog</a>
+                <a href="#">Contact</a>
+            </div>
+
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <a href="#">Documentation</a>
+                <a href="#">Community</a>
+                <a href="#">Help Center</a>
+                <a href="#">Status</a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2026 Align. All rights reserved.</p>
+            <div class="legal-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="js/landing.js"></script>
+</body>
+</html>

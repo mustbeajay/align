@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor | Align</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/editor.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="mobile-restriction">
+        <div class="restriction-card">
+            <div class="icon-circle">
+                <i class="ri-computer-line"></i>
+            </div>
+            <h2>Desktop Only</h2>
+            <p>Align is a powerful design tool optimized for mouse and keyboard. Please open this project on your desktop browser.</p>
+            <a href="dashboard.html" class="btn btn-secondary">
+                <i class="ri-arrow-left-line"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <div id="editor-app">
+        <header class="editor-header">
+            <div class="left-section">
+                <a href="dashboard.html" class="home-btn" title="Back to Dashboard">
+                    <div class="logo-box small">A</div>
+                </a>
+                <div class="divider-vertical"></div>
+                <div class="file-info">
+                    <h1 id="project-name">Untitled Project</h1>
+                    <span class="save-status">All changes saved</span>
+                </div>
+            </div>
+
+            <div class="center-section">
+                <div class="toolbar">
+                    <button class="tool-btn active" data-tool="cursor" title="Move (V)">
+                        <i class="ri-cursor-fill"></i>
+                    </button>
+                    <button class="tool-btn" data-tool="rectangle" title="Rectangle (R)">
+                        <i class="ri-shape-line"></i>
+                    </button>
+                    <button class="tool-btn" data-tool="text" title="Text (T)">
+                        <i class="ri-text"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="right-section">
+                <button class="btn btn-primary small" id="export-btn">
+                    Export <i class="ri-download-line"></i>
+                </button>
+            </div>
+        </header>
+
+        <main class="editor-workspace">
+            <aside class="panel left-panel">
+                <div class="panel-header">
+                    <h3>Layers</h3>
+                </div>
+                <div class="layers-list" id="layers-list">
+                    <div class="empty-layers">No elements</div>
+                </div>
+            </aside>
+
+            <section class="canvas-container" id="canvas-container">
+                <div class="canvas-wrapper">
+                    <div id="canvas" class="canvas">
+                        </div>
+                </div>
+            </section>
+
+            <aside class="panel right-panel">
+                <div class="panel-header">
+                    <h3>Design</h3>
+                </div>
+                <div class="properties-content" id="properties-panel">
+                    <div class="empty-selection">
+                        <p>Select an element to edit</p>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+<div id="export-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Export Design</h3>
+                <button class="close-modal"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="export-options">
+                    <div class="export-option" id="export-json-btn">
+                        <div class="export-icon json"><i class="ri-braces-line"></i></div>
+                        <div class="export-info">
+                            <h4>JSON Data</h4>
+                            <p>Save raw data to restore later.</p>
+                        </div>
+                        <i class="ri-download-2-line action-icon"></i>
+                    </div>
+
+                    <div class="export-option" id="export-html-btn">
+                        <div class="export-icon html"><i class="ri-html5-line"></i></div>
+                        <div class="export-info">
+                            <h4>HTML Code</h4>
+                            <p>Export as a standalone web page.</p>
+                        </div>
+                        <i class="ri-download-2-line action-icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal full-width">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/core/editor.js"></script>
+</body>
+</html>
