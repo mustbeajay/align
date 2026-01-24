@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <div id="mobile-restriction">
@@ -17,7 +19,8 @@
                 <i class="ri-computer-line"></i>
             </div>
             <h2>Desktop Only</h2>
-            <p>Align is a powerful design tool optimized for mouse and keyboard. Please open this project on your desktop browser.</p>
+            <p>Align is a powerful design tool optimized for mouse and keyboard. Please open this project on your
+                desktop browser.</p>
             <a href="dashboard.html" class="btn btn-secondary">
                 <i class="ri-arrow-left-line"></i> Back to Dashboard
             </a>
@@ -52,6 +55,9 @@
             </div>
 
             <div class="right-section">
+                <button id="theme-btn" class="tool-btn" title="Toggle Theme" style="margin-right: 10px;">
+                    <i class="ri-sun-line"></i>
+                </button>
                 <button class="btn btn-primary small" id="export-btn">
                     Export <i class="ri-download-line"></i>
                 </button>
@@ -71,7 +77,7 @@
             <section class="canvas-container" id="canvas-container">
                 <div class="canvas-wrapper">
                     <div id="canvas" class="canvas">
-                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -87,7 +93,7 @@
             </aside>
         </main>
     </div>
-<div id="export-modal" class="modal-overlay hidden">
+    <div id="export-modal" class="modal-overlay hidden">
         <div class="modal-card">
             <div class="modal-header">
                 <h3>Export Design</h3>
@@ -135,4 +141,5 @@
     </div>
     <script type="module" src="js/core/editor.js"></script>
 </body>
+
 </html>

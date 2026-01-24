@@ -80,6 +80,7 @@
 }
 .right-section {
   justify-content: flex-end;
+  gap: 8px;
 }
 
 .divider-vertical {
