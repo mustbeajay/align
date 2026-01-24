@@ -18,6 +18,14 @@ const layersPanel = new LayersPanel();
 const exporter = new ExportManager();
 
 async function initProject() {
+  // Theme
+  const prefs = currentUser.preferences || {};
+  if (prefs.theme === "dark")
+    document.documentElement.setAttribute("data-theme", "dark");
+  else document.documentElement.removeAttribute("data-theme");
+  if (prefs.accent)
+    document.documentElement.style.setProperty("--primary", prefs.accent);
+
   const projects = backend.getUserProjects(currentUser.id);
   const project = projects.find((p) => p.id === projectId);
 
@@ -63,28 +71,77 @@ window.addEventListener("toolChange", (e) => {
   canvas.style.cursor = "default";
 });
 
-document.getElementById("export-btn").addEventListener("click", () => {
-  openModal("export-modal");
-});
-
+document
+  .getElementById("export-btn")
+  .addEventListener("click", () => openModal("export-modal"));
 const exportModal = document.getElementById("export-modal");
 if (exportModal) {
-  exportModal.querySelectorAll(".close-modal").forEach((btn) => {
-    btn.addEventListener("click", () => closeModal("export-modal"));
-  });
+  exportModal
+    .querySelectorAll(".close-modal")
+    .forEach((btn) =>
+      btn.addEventListener("click", () => closeModal("export-modal")),
+    );
 }
-
 document.getElementById("export-json-btn").addEventListener("click", () => {
-  const name = document.getElementById("project-name").textContent || "design";
-  exporter.downloadJSON(name);
+  exporter.downloadJSON(
+    document.getElementById("project-name").textContent || "design",
+  );
+  closeModal("export-modal");
+});
+document.getElementById("export-html-btn").addEventListener("click", () => {
+  exporter.downloadHTML(
+    document.getElementById("project-name").textContent || "design",
+  );
   closeModal("export-modal");
 });
 
-document.getElementById("export-html-btn").addEventListener("click", () => {
-  const name = document.getElementById("project-name").textContent || "design";
-  exporter.downloadHTML(name);
-  closeModal("export-modal");
+const ctxMenu = document.getElementById("context-menu");
+
+canvas.addEventListener("contextmenu", (e) => {
+  e.preventDefault();
+
+  const clickedEl = e.target.closest(".canvas-element");
+  if (!clickedEl) return;
+
+  const id = clickedEl.id;
+  tools.selectElement(id);
+
+  ctxMenu.style.left = `${e.pageX}px`;
+  ctxMenu.style.top = `${e.pageY}px`;
+  ctxMenu.classList.remove("hidden");
 });
+
+document.addEventListener("click", (e) => {
+  if (!ctxMenu.contains(e.target)) ctxMenu.classList.add("hidden");
+});
+
+document.getElementById("ctx-front").addEventListener("click", () => {
+  if (EditorState.selectedId) {
+    EditorState.bringToFront(EditorState.selectedId);
+    window.dispatchEvent(new CustomEvent("canvasReorder"));
+    ctxMenu.classList.add("hidden");
+  }
+});
+document.getElementById("ctx-back").addEventListener("click", () => {
+  if (EditorState.selectedId) {
+    EditorState.sendToBack(EditorState.selectedId);
+    window.dispatchEvent(new CustomEvent("canvasReorder"));
+    ctxMenu.classList.add("hidden");
+  }
+});
+document.getElementById("ctx-delete").addEventListener("click", () => {
+  if (EditorState.selectedId) {
+    EditorState.elements = EditorState.elements.filter(
+      (el) => el.id !== EditorState.selectedId,
+    );
+    tools.renderAll();
+    tools.deselectAll();
+    window.dispatchEvent(new CustomEvent("refreshLayers"));
+    backend.saveProject(projectId, EditorState.elements);
+    ctxMenu.classList.add("hidden");
+  }
+});
+
 
 let isDragging = false;
 let isResizing = false;
@@ -93,7 +150,7 @@ let startX, startY;
 let initialElData = null;
 
 canvas.addEventListener("mousedown", (e) => {
-  if (e.button !== 0) return;
+  if (e.button !== 0) return; 
 
   if (e.target.classList.contains("resize-handle")) {
     isResizing = true;
@@ -108,16 +165,12 @@ canvas.addEventListener("mousedown", (e) => {
   const clickedEl = e.target.closest(".canvas-element");
   if (clickedEl) {
     if (clickedEl.isContentEditable) return;
-
     const id = clickedEl.id;
     if (EditorState.activeTool === "cursor") {
-      if (EditorState.selectedId !== id) {
-        tools.selectElement(id);
-      }
+      if (EditorState.selectedId !== id) tools.selectElement(id);
       isDragging = true;
       startX = e.clientX;
       startY = e.clientY;
-
       const rawData = EditorState.getElementById(id);
       initialElData = {
         ...rawData,
@@ -195,6 +248,7 @@ window.addEventListener("mouseup", () => {
   }
 });
 
+
 window.addEventListener("propertiesChanged", (e) => {
   const id = e.detail;
   const elData = EditorState.getElementById(id);
@@ -204,16 +258,15 @@ window.addEventListener("propertiesChanged", (e) => {
     backend.saveProject(projectId, EditorState.elements);
   }
 });
-
-window.addEventListener("requestSelection", (e) => {
-  tools.selectElement(e.detail);
-});
-
+window.addEventListener("requestSelection", (e) =>
+  tools.selectElement(e.detail),
+);
 window.addEventListener("canvasReorder", () => {
   tools.renderAll();
   window.dispatchEvent(new CustomEvent("refreshLayers"));
   backend.saveProject(projectId, EditorState.elements);
 });
+
 
 document.addEventListener("keydown", (e) => {
   if (
