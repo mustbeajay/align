@@ -35,6 +35,50 @@ async function initProject() {
     tools.renderAll();
     window.dispatchEvent(new CustomEvent("refreshLayers"));
   }
+
+  // --- THEME SWITCHER LOGIC ---
+  const themeBtn = document.getElementById("theme-btn");
+  const themeIcon = themeBtn.querySelector("i");
+
+  // 1. Set initial icon based on loaded theme
+  function updateThemeIcon(theme) {
+    if (theme === "dark") {
+      themeIcon.className = "ri-moon-line"; // Moon icon for dark mode
+    } else {
+      themeIcon.className = "ri-sun-line"; // Sun icon for light mode
+    }
+  }
+
+  // Initialize icon state
+  const initialTheme =
+    document.documentElement.getAttribute("data-theme") || "light";
+  updateThemeIcon(initialTheme);
+
+  // 2. Handle Click
+  themeBtn.addEventListener("click", async () => {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+    // Apply immediately (Visual)
+    if (newTheme === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+    updateThemeIcon(newTheme);
+
+    // Save to Backend (Persistence)
+    // We need to preserve the current accent color
+    const user = backend.getCurrentUser();
+    const currentAccent = user.preferences?.accent || "#fca5a5";
+
+    await backend.updateUser(user.id, {
+      preferences: {
+        theme: newTheme,
+        accent: currentAccent,
+      },
+    });
+  });
 }
 initProject();
 
@@ -142,7 +186,6 @@ document.getElementById("ctx-delete").addEventListener("click", () => {
   }
 });
 
-
 let isDragging = false;
 let isResizing = false;
 let activeHandle = null;
@@ -150,7 +193,7 @@ let startX, startY;
 let initialElData = null;
 
 canvas.addEventListener("mousedown", (e) => {
-  if (e.button !== 0) return; 
+  if (e.button !== 0) return;
 
   if (e.target.classList.contains("resize-handle")) {
     isResizing = true;
@@ -248,7 +291,6 @@ window.addEventListener("mouseup", () => {
   }
 });
 
-
 window.addEventListener("propertiesChanged", (e) => {
   const id = e.detail;
   const elData = EditorState.getElementById(id);
@@ -266,7 +308,6 @@ window.addEventListener("canvasReorder", () => {
   window.dispatchEvent(new CustomEvent("refreshLayers"));
   backend.saveProject(projectId, EditorState.elements);
 });
-
 
 document.addEventListener("keydown", (e) => {
   if (
