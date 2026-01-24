@@ -97,7 +97,7 @@ function closeModal(id) {
   }
 }
 
-const toolBtns = document.querySelectorAll(".tool-btn");
+const toolBtns = document.querySelectorAll('.tool-btn[data-tool]');
 toolBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
     toolBtns.forEach((b) => b.classList.remove("active"));
